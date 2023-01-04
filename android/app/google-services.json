@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "934796210047",
+    "firebase_url": "https://tomaas-69283-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tomaas-69283",
+    "storage_bucket": "tomaas-69283.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934796210047:android:202c6f7aaca333b28e344a",
+        "android_client_info": {
+          "package_name": "com.example.tomas_driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934796210047-2d3fbohv78jim9jn0v3k2ft6aqq5g6it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAInY4UdApPo9HHuaqSbhTVi39qtuYwOmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934796210047-2d3fbohv78jim9jn0v3k2ft6aqq5g6it.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "934796210047-4j7k16mci8r3l38ntofcrhu7vqi1srvp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.toyota.tomasdriver"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934796210047:android:f0ec45725bb4471c8e344a",
+        "android_client_info": {
+          "package_name": "com.tomas.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934796210047-2d3fbohv78jim9jn0v3k2ft6aqq5g6it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAInY4UdApPo9HHuaqSbhTVi39qtuYwOmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934796210047-2d3fbohv78jim9jn0v3k2ft6aqq5g6it.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "934796210047-4j7k16mci8r3l38ntofcrhu7vqi1srvp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.toyota.tomasdriver"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934796210047:android:78cbc233a42926e88e344a",
+        "android_client_info": {
+          "package_name": "com.tomasdriver.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934796210047-2d3fbohv78jim9jn0v3k2ft6aqq5g6it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAInY4UdApPo9HHuaqSbhTVi39qtuYwOmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934796210047-2d3fbohv78jim9jn0v3k2ft6aqq5g6it.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "934796210047-4j7k16mci8r3l38ntofcrhu7vqi1srvp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.toyota.tomasdriver"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
