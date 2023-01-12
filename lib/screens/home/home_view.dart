@@ -167,7 +167,9 @@ class HomeView extends HomeViewModel {
                                   width: double.infinity,
                                   child: tripPerDay.length <= 0
                                       ? SingleChildScrollView(
-                                          child: NoAssignments(AppTranslations.of(context).text("empty_state_trip")))
+                                          child: NoAssignments(
+                                              AppTranslations.of(context)
+                                                  .text("empty_state_trip")))
                                       : ListView.builder(
                                           shrinkWrap: true,
                                           itemCount: tripPerDay.length,

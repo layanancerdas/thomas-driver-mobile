@@ -91,29 +91,29 @@ abstract class LifecycleManagerViewModel extends State<LifecycleManager> {
     } catch (e) {
       print(e);
     } finally {
-      checkBE();
+      // checkBE();
     }
   }
 
-  Future<void> checkBE() async {
-    try {
-      final result = await InternetAddress.lookup(
-          DEV ? 'tomas-api-dev.geekco.id' : "tomas-api.toyota.co.id");
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        // print('connected');
-        toggleMaintenance(false);
-      }
-    } on SocketException catch (e) {
-      print(e);
-      if (!maintenance && !noInternet) {
-        Utils.onErrorConnection("fullpage_maintenance",
-            navigatorKey: widget.navigatorKey);
-        toggleMaintenance(true);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future<void> checkBE() async {
+  //   try {
+  //     final result = await InternetAddress.lookup(
+  //         DEV ? 'https://103.30.195.21:3000/api' : "tomas-api.toyota.co.id");
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       // print('connected');
+  //       toggleMaintenance(false);
+  //     }
+  //   } on SocketException catch (e) {
+  //     print(e);
+  //     if (!maintenance && !noInternet) {
+  //       Utils.onErrorConnection("fullpage_maintenance",
+  //           navigatorKey: widget.navigatorKey);
+  //       toggleMaintenance(true);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   Future<void> getTripByDriverId(String startDate, String endDate) async {
     try {
@@ -311,7 +311,7 @@ abstract class LifecycleManagerViewModel extends State<LifecycleManager> {
     String jwtToken = prefs.getString("jwtToken");
 
     if (!maintenance) {
-      checkBE();
+      // checkBE();
     }
 
     if (jwtToken != null && !noInternet && !maintenance) {

@@ -1,9 +1,9 @@
-const DEV = false;
+const DEV = true;
 const MANAGE_TRIP_BY_TIME = true;
 const BASE_URL =
-    DEV ? "https://tomas-api-dev.geekco.id" : "https://tomas-api.toyota.co.id";
+    DEV ? "http://103.30.195.21:3000" : "https://tomas-api.toyota.co.id";
 const BASE_API = DEV
-    ? "https://tomas-api-dev.geekco.id/api"
+    ? "http://103.30.195.21:3000/api"
     : "https://tomas-api.toyota.co.id/api";
 const CLIENT_ID = DEV
     ? "b12cf3a6-920d-11eb-a8b3-0242ac130003"

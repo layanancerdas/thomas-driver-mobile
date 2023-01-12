@@ -146,37 +146,36 @@ class _MainAppState extends State<MainApp> {
       child: StoreProvider<AppState>(
           store: widget.store,
           child: LifecycleManager(
-            navigatorKey: navigatorKey,
-            child: MaterialApp(
               navigatorKey: navigatorKey,
-              title: 'Tomas Driver',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                  scaffoldBackgroundColor: Colors.white,
-                  brightness: Brightness.light,
-                  primarySwatch: Colors.blue,
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  appBarTheme: AppBarTheme(
-                      elevation: 0,
-                      color: Colors.white,
-                      brightness: Brightness.light),
-                  dialogBackgroundColor: Colors.white24,
-                  bottomSheetTheme:
-                      BottomSheetThemeData(backgroundColor: Colors.black26)),
-              localizationsDelegates: [
-                _newLocaleDelegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: <Locale>[
-                const Locale('en', ''),
-                const Locale('id', ''),
-              ],
-              home: !isLogin ? Sign() : Home(),
-              // home: LifecycleManager(Home()),
-              routes: routes,
-            ),
-          )),
+              child: MaterialApp(
+                navigatorKey: navigatorKey,
+                title: 'Tomas Driver',
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                    scaffoldBackgroundColor: Colors.white,
+                    brightness: Brightness.light,
+                    primarySwatch: Colors.blue,
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                    appBarTheme: AppBarTheme(
+                        elevation: 0,
+                        color: Colors.white,
+                        brightness: Brightness.light),
+                    dialogBackgroundColor: Colors.white24,
+                    bottomSheetTheme:
+                        BottomSheetThemeData(backgroundColor: Colors.black26)),
+                localizationsDelegates: [
+                  _newLocaleDelegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: <Locale>[
+                  const Locale('en', ''),
+                  const Locale('id', ''),
+                ],
+                home: !isLogin ? Sign() : Home(),
+                // home: LifecycleManager(Home()),
+                routes: routes,
+              ))),
     );
   }
 }
