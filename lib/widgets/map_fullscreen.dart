@@ -184,9 +184,6 @@ class _MapFullscreenState extends State<MapFullscreen> {
         results[batch][1] += sw.elapsedMilliseconds;
         sw.reset();
       }
-
-      print(
-          'batch=$batch,primitive=${results[batch][0] / trial}ms, batch=${results[batch][1] / trial}ms');
     }
   }
 }

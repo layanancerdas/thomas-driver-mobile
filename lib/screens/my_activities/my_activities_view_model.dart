@@ -280,7 +280,6 @@ abstract class MyActivitiesViewModel extends State<MyActivities> {
     try {
       dynamic res = await Providers.getTripByStatus(
           limit: 10, offset: 0, status: "COMPLETED");
-      print(res.data);
       if (res.data['message'] == 'SUCCESS') {
         List _sortingData = res.data['data'];
         _sortingData.sort((a, b) =>

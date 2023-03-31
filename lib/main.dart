@@ -167,6 +167,7 @@ class _MainAppState extends State<MainApp> {
                   _newLocaleDelegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: <Locale>[
                   const Locale('en', ''),

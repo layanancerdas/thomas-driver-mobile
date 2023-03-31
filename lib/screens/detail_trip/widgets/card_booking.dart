@@ -63,7 +63,7 @@ class CardBooking extends StatefulWidget {
 
 class _CardBookingState extends State<CardBooking> {
   List pickupPoint = [];
-
+  String statusPickup = '';
   setRoute() async {
     return Container();
   }
@@ -91,6 +91,16 @@ class _CardBookingState extends State<CardBooking> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    // String lastWord =
+    //     widget.status.substring(widget.status.lastIndexOf(" ") + 1);
+    // final firstWord = widget.status.split(' ').take(1).join(' ');
+    // print(firstWord);
+
+    List<String> arrayStatus = widget.status.split(" ");
+    if (arrayStatus.length > 2) {
+      statusPickup = arrayStatus.sublist(2, arrayStatus.length).join(" ");
+    }
+
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -148,44 +158,6 @@ class _CardBookingState extends State<CardBooking> {
                         SizedBox(height: 4),
                       ],
                     ),
-                    // Column(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     mainAxisSize: MainAxisSize.min,
-                    //     children: [
-                    //       // for (int i = 0; i < pickupPoint.length + 1; i++)
-
-                    //     ]),
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                    //     Container(
-                    //       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
-                    //       width: 8,
-                    //       height: 8,
-                    //       decoration: BoxDecoration(
-                    //           border: Border.all(
-                    //               width: 2, color: ColorsCustom.black),
-                    //           borderRadius: BorderRadius.circular(10)),
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     Container(
-                    //       margin: EdgeInsets.symmetric(horizontal: 10),
-                    //       height: 82,
-                    //       child: SvgPicture.asset(
-                    //           "assets/images/dotted-very-long-black.svg"),
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     Container(
-                    //       margin: EdgeInsets.symmetric(horizontal: 13),
-                    //       child: Icon(
-                    //         Icons.location_on,
-                    //         size: 15,
-                    //         color: ColorsCustom.black,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     widget.type == "DEPARTURE"
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -206,7 +178,10 @@ class _CardBookingState extends State<CardBooking> {
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   width: 2,
-                                                  color: ColorsCustom.black),
+                                                  color: statusPickup ==
+                                                          pickupPoint[i]['name']
+                                                      ? ColorsCustom.green
+                                                      : ColorsCustom.black),
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                         ),
@@ -215,7 +190,8 @@ class _CardBookingState extends State<CardBooking> {
                                           margin: EdgeInsets.only(left: 2),
                                           height: 82,
                                           child: SvgPicture.asset(
-                                              "assets/images/dotted-very-long-black.svg"),
+                                              "assets/images/dotted-very-long-black.svg",
+                                              color: ColorsCustom.black),
                                         ),
                                         SizedBox(height: 2),
                                       ],
@@ -232,7 +208,10 @@ class _CardBookingState extends State<CardBooking> {
                                             child: CustomText(
                                               pickupPoint[i]['name'],
                                               fontWeight: FontWeight.w500,
-                                              color: ColorsCustom.black,
+                                              color: statusPickup ==
+                                                      pickupPoint[i]['name']
+                                                  ? ColorsCustom.green
+                                                  : ColorsCustom.black,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -288,7 +267,10 @@ class _CardBookingState extends State<CardBooking> {
                                         child: Icon(
                                           Icons.location_on,
                                           size: 15,
-                                          color: ColorsCustom.black,
+                                          color: statusPickup ==
+                                                  widget.destinationName
+                                              ? ColorsCustom.green
+                                              : ColorsCustom.black,
                                         ),
                                       ),
                                       SizedBox(height: 5)
@@ -304,7 +286,10 @@ class _CardBookingState extends State<CardBooking> {
                                         child: CustomText(
                                           "${widget.destinationName}",
                                           fontWeight: FontWeight.w500,
-                                          color: ColorsCustom.black,
+                                          color: statusPickup ==
+                                                  widget.destinationName
+                                              ? ColorsCustom.green
+                                              : ColorsCustom.black,
                                           fontSize: 14,
                                         ),
                                       ),
@@ -364,7 +349,10 @@ class _CardBookingState extends State<CardBooking> {
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                                 width: 2,
-                                                color: ColorsCustom.black),
+                                                color: statusPickup ==
+                                                        widget.destinationName
+                                                    ? ColorsCustom.green
+                                                    : ColorsCustom.black),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                       ),
@@ -387,7 +375,10 @@ class _CardBookingState extends State<CardBooking> {
                                         child: CustomText(
                                           "${widget.destinationName}",
                                           fontWeight: FontWeight.w500,
-                                          color: ColorsCustom.black,
+                                          color: statusPickup ==
+                                                  widget.destinationName
+                                              ? ColorsCustom.green
+                                              : ColorsCustom.black,
                                           fontSize: 14,
                                         ),
                                       ),
@@ -445,8 +436,12 @@ class _CardBookingState extends State<CardBooking> {
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         width: 2,
-                                                        color:
-                                                            ColorsCustom.black),
+                                                        color: statusPickup ==
+                                                                pickupPoint[i]
+                                                                    ['name']
+                                                            ? ColorsCustom.green
+                                                            : ColorsCustom
+                                                                .black),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10)),
@@ -472,7 +467,10 @@ class _CardBookingState extends State<CardBooking> {
                                                 child: Icon(
                                                   Icons.location_on,
                                                   size: 15,
-                                                  color: ColorsCustom.black,
+                                                  color: statusPickup ==
+                                                          pickupPoint[i]['name']
+                                                      ? ColorsCustom.green
+                                                      : ColorsCustom.black,
                                                 ),
                                               ),
                                               SizedBox(height: 5)
@@ -490,7 +488,10 @@ class _CardBookingState extends State<CardBooking> {
                                             child: CustomText(
                                               pickupPoint[i]['name'],
                                               fontWeight: FontWeight.w500,
-                                              color: ColorsCustom.black,
+                                              color: statusPickup ==
+                                                      pickupPoint[i]['name']
+                                                  ? ColorsCustom.green
+                                                  : ColorsCustom.black,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -534,80 +535,6 @@ class _CardBookingState extends State<CardBooking> {
                                 )
                             ],
                           ),
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                    //     CustomText(
-                    //       "$pointA",
-                    //       fontWeight: FontWeight.w500,
-                    //       color: ColorsCustom.black,
-                    //       fontSize: 14,
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     CustomText(
-                    //       "$addressA",
-                    //       fontWeight: FontWeight.w400,
-                    //       color: ColorsCustom.black,
-                    //       fontSize: 12,
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     GestureDetector(
-                    //       // onTap: () => Navigator.push(
-                    //       //     context,
-                    //       //     MaterialPageRoute(
-                    //       //         builder: (_) => MapFullscreen(
-                    //       //               coordinates: coordinatesA,
-                    //       //               city:
-                    //       //                   "${Utils.capitalizeFirstofEach(pointA)}",
-                    //       //               address:
-                    //       //                   "${Utils.capitalizeFirstofEach(addressA)}",
-                    //       //             ),
-                    //       //         fullscreenDialog: true)),
-                    //       child: CustomText(
-                    //         "View on Map",
-                    //         fontWeight: FontWeight.w400,
-                    //         color: ColorsCustom.primary,
-                    //         fontSize: 12,
-                    //       ),
-                    //     ),
-                    //     SizedBox(height: 35),
-                    //     CustomText(
-                    //       "$pointB",
-                    //       fontWeight: FontWeight.w500,
-                    //       color: ColorsCustom.black,
-                    //       fontSize: 14,
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     CustomText(
-                    //       "$addressB",
-                    //       fontWeight: FontWeight.w400,
-                    //       color: ColorsCustom.black,
-                    //       fontSize: 12,
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     GestureDetector(
-                    //       // onTap: () => Navigator.push(
-                    //       //     context,
-                    //       //     MaterialPageRoute(
-                    //       //         builder: (_) => MapFullscreen(
-                    //       //               coordinates: coordinatesB,
-                    //       //               city:
-                    //       //                   "${Utils.capitalizeFirstofEach(pointB)}",
-                    //       //               address:
-                    //       //                   "${Utils.capitalizeFirstofEach(addressB)}",
-                    //       //             ),
-                    //       //         fullscreenDialog: true)),
-                    //       child: CustomText(
-                    //         "View on Map",
-                    //         fontWeight: FontWeight.w400,
-                    //         color: ColorsCustom.primary,
-                    //         fontSize: 12,
-                    //       ),
-                    //     )
-                    //   ],
-                    // )
                   ],
                 ),
               ],

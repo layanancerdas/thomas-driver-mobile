@@ -19,6 +19,8 @@ AjkState _setAjkState(AjkState state, dynamic action) {
     return state.copyWith(completedTrip: action.completedTrip);
   } else if (action is SetSelectedPassanger) {
     return state.copyWith(selectedPassanger: action.selectedPassanger);
+  } else if (action is SetSelectedBooking) {
+    return state.copyWith(selectedBooking: action.selectedBooking);
   } else if (action is SetResolveDate) {
     return state.copyWith(resolveDate: action.resolveDate);
   } else if (action is SetStatusSelectedTrip) {

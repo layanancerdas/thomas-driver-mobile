@@ -359,18 +359,19 @@ abstract class LifecycleManagerViewModel extends State<LifecycleManager> {
   void initState() {
     super.initState();
     initConnectivity();
-    checkInternet();
+    // checkInternet();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
-    Timer.periodic(Duration(seconds: 5), (_) {
+    Timer.periodic(Duration(seconds: 10), (_) {
       checkInternet();
-      initPeriodic();
+      // initPeriodic();
+      // initNotification();
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       store = StoreProvider.of<AppState>(context);
-      initNotification();
-      initData();
+
+      // initData();
     });
   }
 

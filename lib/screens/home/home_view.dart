@@ -43,7 +43,7 @@ class HomeView extends HomeViewModel {
                     : children[currentIndex]['page'],
             bottomNavigationBar: AnimatedContainer(
                 duration: Duration(milliseconds: 300),
-                height: state.disableNavbar ? 0 : 90,
+                height: state.disableNavbar ? 0 : 120,
                 child: new BottomNavigationBar(
                   onTap: onTabTapped,
                   currentIndex: currentIndex,

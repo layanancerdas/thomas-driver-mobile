@@ -257,6 +257,7 @@ class _QRScanState extends State<QRScan> with SingleTickerProviderStateMixin {
       dynamic res =
           await Providers.getPassengers(tripGroupId: widget.tripGroupId);
       store.dispatch(SetSelectedPassanger(selectedPassanger: res.data['data']));
+      print(res.data['data']);
     } catch (e) {
       print(e);
     }

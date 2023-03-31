@@ -31,6 +31,19 @@ class Providers {
             }));
   }
 
+  static Future confirmAttendance({String bookingId}) async {
+    return Dio().get('$BASE_API/ajk/booking/confirm_attendance',
+        queryParameters: {'booking_id': bookingId},
+        options: Options(
+            headers: {
+              'authorization': basicAuth,
+            },
+            followRedirects: false,
+            validateStatus: (status) {
+              return status < 1000;
+            }));
+  }
+
   static Future forgotPassword({String phoneNumber}) async {
     return Dio().post('$BASE_API/ajk/drivers/forgot_password',
         data: {'phone_number': phoneNumber},
@@ -71,7 +84,6 @@ class Providers {
   static Future getPassengers({String tripGroupId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String jwtToken = prefs.getString("jwtToken");
-
     return Dio().get('$BASE_API/ajk/trips/$tripGroupId/passengers',
         options: Options(
             headers: {'authorization': basicAuth, 'token': jwtToken},

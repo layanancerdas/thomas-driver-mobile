@@ -6,6 +6,7 @@ class AjkState {
       {this.myTrip,
       this.selectedPassanger,
       this.selectedMyTrip,
+      this.selectedBooking,
       this.assignedTrip,
       this.ongoingTrip,
       this.completedTrip,
@@ -18,7 +19,8 @@ class AjkState {
       assignedTrip,
       ongoingTrip,
       completedTrip,
-      selectedPassanger;
+      selectedPassanger,
+      selectedBooking;
   final Map selectedMyTrip, resolveDate, lastHistorySelectedTrip;
   final String statusSelectedTrip, buttonSelectedTrip;
 
@@ -26,6 +28,7 @@ class AjkState {
     return AjkState(
         myTrip: [],
         selectedPassanger: [],
+        selectedBooking: [],
         selectedMyTrip: {},
         assignedTrip: [],
         ongoingTrip: [],
@@ -39,6 +42,7 @@ class AjkState {
   AjkState copyWith(
       {List myTrip,
       List selectedPassanger,
+      List selectedBooking,
       List assignedTrip,
       List ongoingTrip,
       List completedTrip,
@@ -51,6 +55,7 @@ class AjkState {
         selectedMyTrip: selectedMyTrip ?? this.selectedMyTrip,
         myTrip: myTrip ?? this.myTrip,
         selectedPassanger: selectedPassanger ?? this.selectedPassanger,
+        selectedBooking: selectedBooking ?? this.selectedBooking,
         assignedTrip: assignedTrip ?? this.assignedTrip,
         ongoingTrip: ongoingTrip ?? this.ongoingTrip,
         completedTrip: completedTrip ?? this.completedTrip,
@@ -71,6 +76,7 @@ class AjkState {
           ongoingTrip == other.ongoingTrip &&
           completedTrip == other.completedTrip &&
           selectedPassanger == other.selectedPassanger &&
+          selectedBooking == other.selectedBooking &&
           myTrip == other.myTrip &&
           resolveDate == other.resolveDate &&
           lastHistorySelectedTrip == other.lastHistorySelectedTrip &&
@@ -84,6 +90,7 @@ class AjkState {
       ongoingTrip.hashCode ^
       completedTrip.hashCode ^
       selectedPassanger.hashCode ^
+      selectedBooking.hashCode ^
       myTrip.hashCode ^
       resolveDate.hashCode ^
       lastHistorySelectedTrip.hashCode ^

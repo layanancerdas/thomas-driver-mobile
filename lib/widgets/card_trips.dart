@@ -97,8 +97,6 @@ class _CardTripsState extends State<CardTrips> {
   Future<void> getTripdByTripId() async {
     try {
       dynamic res = await Providers.getTripByTripId(tripId: widget.id);
-      print("res.data");
-      print(res.data);
       store.dispatch(SetSelectedMyTrip(selectedMyTrip: res.data['data']));
     } catch (e) {
       print(e);
@@ -213,7 +211,6 @@ class _CardTripsState extends State<CardTrips> {
   }
 
   Future<void> manageTrip(bool noPop) async {
-    print("utu");
     if (store.state.generalState.isLoading) {
       return;
     }
@@ -299,9 +296,6 @@ class _CardTripsState extends State<CardTrips> {
       // );
       dynamic res = await Providers.manageTrip(
           tripOrderId: tripOrderId, pickupPointId: _pickupPoint, type: _method);
-
-      print("res.data bro");
-      print(res.data);
 
       // if (vType == "HEADING" || vType == "ARRIVED") {
       //   setState(() {
@@ -582,17 +576,17 @@ class _CardTripsState extends State<CardTrips> {
                             ),
                           ],
                         ),
-                        int.parse(widget.stepTrip) > 0
-                            ? Padding(
-                                padding: EdgeInsets.only(left: 8, top: 5),
-                                child: CustomText(
-                                  "${widget.stepTrip} ${AppTranslations.of(context).text("card_more_stop")}",
-                                  color: ColorsCustom.black,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 11,
-                                ),
-                              )
-                            : SizedBox(height: 24),
+                        // int.parse(widget.stepTrip) > 0
+                        //     ? Padding(
+                        //         padding: EdgeInsets.only(left: 8, top: 5),
+                        //         child: CustomText(
+                        //           "${widget.stepTrip} ${AppTranslations.of(context).text("card_more_stop")}",
+                        //           color: ColorsCustom.black,
+                        //           fontWeight: FontWeight.w300,
+                        //           fontSize: 11,
+                        //         ),
+                        //       )
+                        SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

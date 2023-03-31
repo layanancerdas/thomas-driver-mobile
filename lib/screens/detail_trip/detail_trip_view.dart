@@ -118,6 +118,7 @@ class DetailTripView extends DetailTripViewModel {
                                             ])
                                       : SizedBox(),
                                   CardBooking(
+                                    status: stateAjk.statusSelectedTrip,
                                       bookingCode: 'tes',
                                       bookingId: stateAjk
                                           .selectedMyTrip['trip_order_id'],
@@ -145,18 +146,20 @@ class DetailTripView extends DetailTripViewModel {
                                       latDestination: stateAjk.selectedMyTrip['trip']['trip_group']['route']['destination_latitude'],
                                       lngDestination: stateAjk.selectedMyTrip['trip']['trip_group']['route']['destination_longitude']),
                                   PassengerList(
+                                    tripId: stateAjk
+                                          .selectedMyTrip['trip_id'],
                                       tripGroupId: stateAjk
                                           .selectedMyTrip['trip_group_id'],
                                       isCompleted:
                                           stateAjk.selectedMyTrip['status'] ==
                                               "COMPLETED"),
-                                  stateAjk.selectedMyTrip['status'] ==
-                                          "COMPLETED"
-                                      ? Container()
-                                      : ScanAttendance(
-                                          tripOrderId: stateAjk
-                                              .selectedMyTrip['trip_order_id'],
-                                          detailFunction: getTripdByTripId),
+                                  // stateAjk.selectedMyTrip['status'] ==
+                                  //         "COMPLETED"
+                                  //     ? Container()
+                                  //     : ScanAttendance(
+                                  //         tripOrderId: stateAjk
+                                  //             .selectedMyTrip['trip_order_id'],
+                                  //         detailFunction: getTripdByTripId),
                                   BusDetails(),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -213,14 +216,14 @@ class DetailTripView extends DetailTripViewModel {
                                           ]),
                                       child: TextButton(
                                         style: TextButton.styleFrom(
-                                          tapTargetSize:  MaterialTapTargetSize.shrinkWrap,
-                                        
-                                        // highlightColor: ColorsCustom.black
-                                        //     .withOpacity(0.12),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 12, horizontal: 16),
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+
+                                          // highlightColor: ColorsCustom.black
+                                          //     .withOpacity(0.12),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 12, horizontal: 16),
                                         ),
-                                        
                                         onPressed: () => Navigator.pushNamed(
                                             context, "/ContactUs"),
                                         child: Row(
@@ -249,21 +252,20 @@ class DetailTripView extends DetailTripViewModel {
                                             child: TextButton(
                                               style: TextButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                side: BorderSide(
-                                                    color: Color(0xFF75C1D4),
-                                                    width: 1),
-                                              ),
-                                              // elevation: 0,
-                                              backgroundColor: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  side: BorderSide(
+                                                      color: Color(0xFF75C1D4),
+                                                      width: 1),
+                                                ),
+                                                // elevation: 0,
+                                                backgroundColor: Colors.white,
                                               ),
                                               onPressed: () {
                                                 // manageTrip();
                                                 Navigator.pushNamed(
                                                     context, "/LiveTracking");
                                               },
-                                              
                                               child: Container(
                                                 height: 56,
                                                 child: Center(
@@ -326,47 +328,50 @@ class DetailTripView extends DetailTripViewModel {
                                             child: Center(
                                               child: ElevatedButton(
                                                 style: TextButton.styleFrom(
-                                                   shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                ),
-                                                elevation: 0,
-                                                backgroundColor: MANAGE_TRIP_BY_TIME
-                                                    ? DateTime.now().isAfter(DateTime.fromMillisecondsSinceEpoch(store
-                                                                        .state
-                                                                        .ajkState
-                                                                        .selectedMyTrip['trip']
-                                                                    [
-                                                                    'departure_time'])
-                                                                .subtract(Duration(
-                                                                    hours:
-                                                                        3))) &&
-                                                            DateTime.now().isBefore(
-                                                                DateTime.fromMillisecondsSinceEpoch(store.state.ajkState.selectedMyTrip['trip']['departure_time'])
-                                                                    .add(Duration(days: 1)))
-                                                        ? Color(0xFF75C1D4)
-                                                        : Color(0xFF828282)
-                                                    : Color(0xFF75C1D4)
-                                                ),
-                                                onPressed: MANAGE_TRIP_BY_TIME
-                                                    ? DateTime.now().isAfter(DateTime.fromMillisecondsSinceEpoch(store
-                                                                        .state
-                                                                        .ajkState
-                                                                        .selectedMyTrip['trip']
-                                                                    [
-                                                                    'departure_time'])
-                                                                .subtract(Duration(
-                                                                    hours:
-                                                                        3))) &&
-                                                            DateTime.now().isBefore(
-                                                                DateTime.fromMillisecondsSinceEpoch(store.state.ajkState.selectedMyTrip['trip']['departure_time'])
-                                                                    .add(Duration(days: 1)))
-                                                        ? () => onChangeStatusClick()
-                                                        : () {
-                                                            onWarningButtonClicked();
-                                                          }
-                                                    : () => onChangeStatusClick(),
-                                               
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    elevation: 0,
+                                                    backgroundColor:
+                                                        MANAGE_TRIP_BY_TIME
+                                                            ? DateTime.now().isAfter(DateTime.fromMillisecondsSinceEpoch(store.state.ajkState.selectedMyTrip['trip']
+                                                                            [
+                                                                            'departure_time'])
+                                                                        .subtract(Duration(
+                                                                            hours:
+                                                                                3))) &&
+                                                                    DateTime.now().isBefore(DateTime.fromMillisecondsSinceEpoch(store
+                                                                            .state
+                                                                            .ajkState
+                                                                            .selectedMyTrip['trip']['departure_time'])
+                                                                        .add(Duration(days: 1)))
+                                                                ? Color(0xFF75C1D4)
+                                                                : Color(0xFF828282)
+                                                            : Color(0xFF75C1D4)),
+                                                onPressed:
+                                                    //  MANAGE_TRIP_BY_TIME
+                                                    //     ? DateTime.now().isAfter(DateTime.fromMillisecondsSinceEpoch(store
+                                                    //                         .state
+                                                    //                         .ajkState
+                                                    //                         .selectedMyTrip['trip']
+                                                    //                     [
+                                                    //                     'departure_time'])
+                                                    //                 .subtract(Duration(
+                                                    //                     hours:
+                                                    //                         3))) &&
+                                                    //             DateTime.now().isBefore(
+                                                    //                 DateTime.fromMillisecondsSinceEpoch(store.state.ajkState.selectedMyTrip['trip']['departure_time'])
+                                                    //                     .add(Duration(days: 1)))
+                                                    //         ?
+                                                    //         () => onChangeStatusClick()
+                                                    //         : () {
+                                                    //             onWarningButtonClicked();
+                                                    //           }
+                                                    //     :
+                                                    () => onChangeStatusClick(),
                                                 child: Container(
                                                   height: 56,
                                                   child: isLoading

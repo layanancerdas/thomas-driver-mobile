@@ -8,15 +8,21 @@ import 'package:tomas_driver/redux/app_state.dart';
 import 'package:tomas_driver/redux/modules/ajk_state.dart';
 import 'package:tomas_driver/widgets/custom_text.dart';
 import 'package:tomas_driver/screens/detail_trip/widgets/modal_passenger_list.dart';
+import 'package:tomas_driver/widgets/passanger_body2.dart';
 import 'package:tomas_driver/widgets/passengers_body.dart';
 import 'package:tomas_driver/widgets/qr_scan.dart';
 
 class PassengerList extends StatefulWidget {
-  final String title, text, icon, tripGroupId;
+  final String title, text, icon, tripGroupId, tripId;
   final bool isCompleted;
 
   PassengerList(
-      {this.title, this.text, this.icon, this.isCompleted, this.tripGroupId});
+      {this.title,
+      this.text,
+      this.icon,
+      this.isCompleted,
+      this.tripGroupId,
+      this.tripId});
 
   @override
   _PassengerListState createState() => _PassengerListState();
@@ -52,14 +58,17 @@ class _PassengerListState extends State<PassengerList> {
   // }
 
   void showModalBottom(BuildContext context) {
+    print(widget.isCompleted);
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.black.withOpacity(0.20),
         isDismissible: true,
         isScrollControlled: true,
         builder: (context) {
-          return PassengerBody(
-              isCompleted: widget.isCompleted, tripGroupId: widget.tripGroupId);
+          return PassengerBody2(
+              isCompleted: widget.isCompleted,
+              tripGroupId: widget.tripGroupId,
+              tripId: widget.tripId);
         });
   }
 

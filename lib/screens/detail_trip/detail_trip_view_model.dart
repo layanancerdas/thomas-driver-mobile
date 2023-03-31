@@ -398,6 +398,7 @@ abstract class DetailTripViewModel extends State<DetailTrip> {
       statusHandler();
       getPassanger(
           store.state.ajkState.selectedMyTrip["trip"]['trip_group_id']);
+      getBookByTripId(store.state.ajkState.selectedMyTrip["trip"]['trip_id']);
     } catch (e) {
       print(e);
     }
@@ -407,6 +408,16 @@ abstract class DetailTripViewModel extends State<DetailTrip> {
     try {
       dynamic res = await Providers.getPassengers(tripGroupId: tripGroupId);
       store.dispatch(SetSelectedPassanger(selectedPassanger: res.data['data']));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> getBookByTripId(String tripId) async {
+    try {
+      dynamic res = await Providers.getBookingByTripId(tripId: tripId);
+      print(res.data['data']);
+      store.dispatch(SetSelectedBooking(selectedBooking: res.data['data']));
     } catch (e) {
       print(e);
     }
@@ -521,9 +532,6 @@ abstract class DetailTripViewModel extends State<DetailTrip> {
       List _tripPickupPoint = store.state.ajkState.selectedMyTrip['trip']
           ['trip_group']['route']['pickup_points'];
 
-      print("pickupPoint_detail");
-      print(_tripPickupPoint);
-
       _tripPickupPoint.sort((a, b) => a['priority'].compareTo(b['priority']));
 
       if (_sortingTripHistory.length <= 0) {
@@ -599,8 +607,6 @@ abstract class DetailTripViewModel extends State<DetailTrip> {
             tripOrderId: tripOrderId,
             pickupPointId: _pickupPoint,
             type: _method);
-
-        print(res.data);
 
         if (_method == "HEADING" || _method == "ARRIVED") {
           setState(() {

@@ -35,7 +35,7 @@
               "client_id": "934796210047-4j7k16mci8r3l38ntofcrhu7vqi1srvp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.toyota.tomasdriver"
+                "bundle_id": "com.tomasdriver.apps"
               }
             }
           ]
@@ -71,7 +71,7 @@
               "client_id": "934796210047-4j7k16mci8r3l38ntofcrhu7vqi1srvp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.toyota.tomasdriver"
+                "bundle_id": "com.tomasdriver.apps"
               }
             }
           ]
@@ -82,7 +82,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:934796210047:android:78cbc233a42926e88e344a",
         "android_client_info": {
-          "package_name": "com.tomasdriver.app"
+          "package_name": "com.tomasdriver.apps"
         }
       },
       "oauth_client": [
@@ -107,7 +107,7 @@
               "client_id": "934796210047-4j7k16mci8r3l38ntofcrhu7vqi1srvp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.toyota.tomasdriver"
+                "bundle_id": "com.tomasdriver.apps"
               }
             }
           ]

@@ -23,7 +23,7 @@ import 'package:intl/intl.dart';
 abstract class HomeViewModel extends State<Home> {
   Store<AppState> store;
   StreamSubscription<Position> positionStream;
-
+  DateTime now = new DateTime.now();
   bool isLoadingTrip = false;
   bool isHaveNewNotif = false;
 
@@ -69,7 +69,14 @@ abstract class HomeViewModel extends State<Home> {
     setState(() {
       currentIndex = index;
     });
-
+    getTripByDriverId(
+        DateTime(now.year, now.month, now.day)
+            .millisecondsSinceEpoch
+            .toString(),
+        DateTime(now.year, now.month, now.day + 1)
+            .subtract(Duration(seconds: 1))
+            .millisecondsSinceEpoch
+            .toString());
     if (index == 0) {
       checkFirstTrip();
     }
@@ -115,22 +122,7 @@ abstract class HomeViewModel extends State<Home> {
                 mode: 'permission',
               );
             });
-        //   return Future.error(
-        //       'Location permissions are permantly denied, we cannot request permissions.');
       }
-      // if (permission != LocationPermission.whileInUse &&
-      //     permission != LocationPermission.always) {
-      //   //   await Geolocator.openLocationSettings();
-      //   // }
-      //   await showModalBottomSheet(
-      //       context: context,
-      //       builder: (BuildContext context) {
-      //         return ModalNoLocation(
-      //           mode: 'permission',
-      //         );
-      //       });
-      // }
-      // }
     } catch (e) {
       print(e);
     } finally {
@@ -144,16 +136,7 @@ abstract class HomeViewModel extends State<Home> {
             });
       }
     }
-    // await getCurrentLocation();
   }
-
-  // void showDialogComingSoon() {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return ModalComingSoon();
-  //       });
-  // }
 
   List monthArray = [
     "January",
@@ -235,16 +218,8 @@ abstract class HomeViewModel extends State<Home> {
                                     AppTranslations.of(context).currentLanguage)
                                 .format(nowDate.add(Duration(days: 5))))
                         : "");
-            // month1 = '${AppTranslations.of(context).text("${monthTranslate[vMonth-1]["value"]}")}';
           });
-        } else {
-          // if (nowDate.add(Duration(days: 5)).month != nowDate.month) {
-          // setState(() {
-          //   month2 =;
-          //   // month2 = " - ${AppTranslations.of(context).text("${monthTranslate[vMonth-1]["value"]}")}";
-          // });
-          // }
-        }
+        } else {}
         if (mounted) {
           setState(() {
             vYear = nowDate.add(Duration(days: i)).year.toString();
@@ -274,6 +249,7 @@ abstract class HomeViewModel extends State<Home> {
       dynamic res = await Providers.getBookingByDriverId(
           startDate: startDate, endDate: endDate);
       if (res.data['message'] == 'SUCCESS') {
+        print('berhasil');
         List _data = res.data['data'];
 
         _data.sort((a, b) => b['status'].compareTo(a['status']));
@@ -335,13 +311,68 @@ abstract class HomeViewModel extends State<Home> {
     }
   }
 
+  Future<void> getUserDetail() async {
+    try {
+      dynamic res = await Providers.getUserDetail();
+      // print(res.data['data']);
+      store.dispatch(SetUserDetail(userDetail: res.data['data']));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> getResolveDate() async {
+    try {
+      dynamic res = await Providers.getResolveDate();
+      if (res.data['code'] == 'SUCCESS') {
+        store.dispatch(SetResolveDate(resolveDate: res.data['data']));
+        // getTripByDriverId(
+        //     DateTime.parse(store.state.ajkState.resolveDate['start_date'])
+        //         .millisecondsSinceEpoch
+        //         .toString(),
+        //     DateTime.parse(store.state.ajkState.resolveDate['end_date'])
+        //         .millisecondsSinceEpoch
+        //         .toString());
+        getTripByDriverId(
+            DateTime(now.year, now.month, now.day)
+                .millisecondsSinceEpoch
+                .toString(),
+            DateTime(now.year, now.month, now.day + 1)
+                .subtract(Duration(seconds: 1))
+                .millisecondsSinceEpoch
+                .toString());
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> initData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jwtToken = prefs.getString("jwtToken");
+    if (jwtToken != null) {
+      getUserDetail();
+      getResolveDate();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     currentIndex = widget.index;
     getProfile();
+    initData();
+    print('init');
+    getTripByDriverId(
+        DateTime(now.year, now.month, now.day)
+            .millisecondsSinceEpoch
+            .toString(),
+        DateTime(now.year, now.month, now.day + 1)
+            .subtract(Duration(seconds: 1))
+            .millisecondsSinceEpoch
+            .toString());
 
-    Timer.periodic(Duration(seconds: 1), (_) {
+    Timer.periodic(Duration(seconds: 5), (_) {
       checkNotif();
     });
 

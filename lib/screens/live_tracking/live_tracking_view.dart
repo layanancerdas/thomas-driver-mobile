@@ -206,7 +206,8 @@ class LiveTrackingView extends LiveTrackingViewModel {
                                         : Color(0xFF828282)
                                     : Color(0xFF75C1D4),
                               ),
-                              onPressed: MANAGE_TRIP_BY_TIME
+                              onPressed: 
+                              MANAGE_TRIP_BY_TIME
                                   ? DateTime.now().isAfter(DateTime.fromMillisecondsSinceEpoch(
                                                   store.state.ajkState
                                                           .selectedMyTrip['trip']
@@ -218,7 +219,8 @@ class LiveTrackingView extends LiveTrackingViewModel {
                                                               .selectedMyTrip['trip']
                                                           ['departure_time'])
                                                   .add(Duration(days: 1)))
-                                      ? () => manageTrip()
+                                      ? 
+                                      () => manageTrip()
                                       : () => {
                                             showDialog(
                                                 context: context,

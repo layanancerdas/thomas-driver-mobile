@@ -98,10 +98,6 @@ abstract class NotificationsViewModel extends State<Notifications> {
 
       dynamic res = await Providers.updateNotif(notif: _temp);
 
-      print("updateNotif");
-      print(_temp);
-      print(res);
-
       if (res.data['code'] == '00' || res.data['code'] == 'SUCCESS') {
         await LifecycleManager.of(context).getNotifications();
         setState(() {

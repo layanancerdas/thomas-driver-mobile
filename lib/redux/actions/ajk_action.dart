@@ -16,6 +16,12 @@ class SetSelectedPassanger {
   SetSelectedPassanger({this.selectedPassanger});
 }
 
+class SetSelectedBooking {
+  final List selectedBooking;
+
+  SetSelectedBooking({this.selectedBooking});
+}
+
 class SetAssignedTrip {
   final List assignedTrip;
 

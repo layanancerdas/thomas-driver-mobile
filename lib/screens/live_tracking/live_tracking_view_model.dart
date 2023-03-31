@@ -19,6 +19,7 @@ import 'package:tomas_driver/redux/app_state.dart';
 import 'package:tomas_driver/redux/modules/ajk_state.dart';
 import 'package:tomas_driver/screens/live_tracking/widgets/dialog_qr.dart';
 import 'package:tomas_driver/widgets/custom_text.dart';
+import 'package:tomas_driver/widgets/passanger_body2.dart';
 import 'package:tomas_driver/widgets/passengers_body.dart';
 import 'package:tomas_driver/widgets/qr_scan.dart';
 import './live_tracking.dart';
@@ -99,56 +100,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
     }
   }
 
-  // void getStatusText() {
-  //   setState(() {
-  //     // print(store.state.ajkState.selectedMyTrip['status']);
-
-  //     if (store.state.ajkState.selectedMyTrip['booking_note'] != null) {
-  //       if (store.state.ajkState.selectedMyTrip['booking_note'] ==
-  //           'DRIVER_ON_THE_WAY') {
-  //         status = 'Driver On The Way';
-  //       } else if (store.state.ajkState.selectedMyTrip['booking_note'] ==
-  //           'DRIVER_HAS_ARRIVED') {
-  //         status = "Driver Has Arrived";
-  //       } else if (store.state.ajkState.selectedMyTrip['booking_note'] ==
-  //           'ON_BOARD') {
-  //         status = "On Board";
-  //       }
-  //     } else {
-  //       status = "Loading...";
-  //     }
-  //   });
-  // }
-
-  // void getSubStatusText() {
-  //   setState(() {
-  //     // print(store.state.ajkState.selectedMyTrip['status']);
-
-  //     if (store.state.ajkState.selectedMyTrip['booking_note'] != null) {
-  //       if (store.state.ajkState.selectedMyTrip['booking_note'] ==
-  //           'DRIVER_ON_THE_WAY') {
-  //         subStatus = 'Your driver is coming';
-  //       } else if (store.state.ajkState.selectedMyTrip['booking_note'] ==
-  //           'DRIVER_HAS_ARRIVED') {
-  //         subStatus = "Your driver has arrived";
-  //       } else if (store.state.ajkState.selectedMyTrip['booking_note'] ==
-  //           'ON_BOARD') {
-  //         subStatus = "On board";
-  //       }
-  //     } else {
-  //       subStatus = "Loading...";
-  //     }
-  //   });
-  // }
-
-  // MapBoxNavigation directions;
-  // MapBoxOptions options;
-
-  // bool isMultipleStop = true;
-  // double distanceRemaining, durationRemaining;
-  // MapBoxNavigationViewController controller;
-  // bool routeBuilt = false;
-  // bool isNavigating = false;
   GoogleMapController controller;
   Map<MarkerId, Marker> markers = {};
   Map<CircleId, Circle> circles = {};
@@ -160,15 +111,16 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
 
   bool isStart = false;
   bool isTripAvailable = false;
-  // double lat = 0;
-  // double lng = 0;
-
+  Timer timer;
   @override
   void initState() {
     super.initState();
     // initialize();
-    Timer.periodic(Duration(seconds: 5), (timer) {
-      getUserLocation();
+    timer = Timer.periodic(Duration(seconds: 5), (_) {
+      if (mounted) {
+        getUserLocation();
+      }
+
       if (isStart) {
         //getUserLocation();
       }
@@ -189,6 +141,7 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
 
   @override
   void dispose() {
+    timer.cancel();
     _streamDB?.cancel();
     super.dispose();
   }
@@ -235,42 +188,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
     databaseReference.child("live_location/${tripOrderId}").remove();
   }
 
-  //Location
-  // _getCurrentLocation() async {
-  //   Position _currentPosition = await Geolocator.getCurrentPosition();
-
-  //   readData();
-
-  //   if (isTripAvailable) {
-  //     updateData(_currentPosition.latitude, _currentPosition.longitude);
-  //   } else {
-  //     createData(_currentPosition.latitude, _currentPosition.longitude);
-  //   }
-
-  //   try {
-  //     Map newData = {
-  //       "lat":_currentPosition.latitude,
-  //       "lng": _currentPosition.longitude
-  //     };
-
-  //     Uint8List imageData = await getMarker("assets/images/bus.png");
-
-  //     updateMarkerAndCircleBus(newData, imageData);
-  //     if (controller != null) {
-  //       controller.animateCamera(CameraUpdate.newCameraPosition(
-  //           new CameraPosition(
-  //               target: LatLng(newData['lat'], newData['lng']), zoom: 12.00)));
-  //       updateMarkerAndCircleBus(newData, imageData);
-
-  //       generateMultiplePolylines(newData);
-  //     }
-  //   } on PlatformException catch (e) {
-  //     if (e.code == 'PERMISSION_DENIED') {
-  //       debugPrint("Permission Denied");
-  //     }
-  //   }
-  // }
-
   Future<Uint8List> getMarker(String url) async {
     ByteData byteData = await DefaultAssetBundle.of(context).load(url);
     return byteData.buffer.asUint8List();
@@ -302,42 +219,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
       circles[circleId] = circle;
     });
   }
-
-  // void getCurrentLocation(Map newData) async {
-  //   try {
-  //     Uint8List imageData = await getMarker("assets/images/bus.png");
-
-  //     updateMarkerAndCircleBus(newData, imageData);
-  //     if (controller != null) {
-  //       controller.animateCamera(CameraUpdate.newCameraPosition(
-  //           new CameraPosition(
-  //               target: LatLng(newData['lat'], newData['lng']), zoom: 12.00)));
-  //       updateMarkerAndCircleBus(newData, imageData);
-
-  //       List _tempPickupPoints = store.state.ajkState.selectedMyTrip['trip']
-  //           ['trip_group']['route']['pickup_points'] as List;
-
-  //       if (_tempPickupPoints.length > 1) {
-  //         generateMultiplePolylines(newData);
-  //       } else {
-  //         generateSinglePolyline(newData);
-  //       }
-  //     }
-  //   } on PlatformException catch (e) {
-  //     if (e.code == 'PERMISSION_DENIED') {
-  //       debugPrint("Permission Denied");
-  //     }
-  //   }
-  // }
-
-  // void getRouteMap(Map newData) async {
-  //   List _tempPickupPoints = store.state.ajkState.selectedMyTrip['trip']['trip_group']['route']['pickup_points'] as List;
-  //   if (_tempPickupPoints.length > 1) {
-  //     generateMultiplePolylines(newData);
-  //   } else {
-  //     generateSinglePolyline(newData);
-  //   }
-  // }
 
   Future<void> getUserLocation({bool initLocation: false}) async {
     Uint8List iconUser = await getMarker("assets/images/bus.png");
@@ -593,55 +474,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
     }
   }
 
-  // void onCreated() async {
-  //   // controller = _controller;
-  //   // _controller.initialize();
-
-  //   List wayPoints = <WayPoint>[];
-
-  //   final destination = WayPoint(
-  //     name: store.state.ajkState.selectedMyTrip['trip']['trip_group']['route']
-  //         ['destination_name'],
-  //     latitude: store.state.ajkState.selectedMyTrip['trip']['trip_group']
-  //         ['route']['destination_latitude'],
-  //     longitude: store.state.ajkState.selectedMyTrip['trip']['trip_group']
-  //         ['route']['destination_longitude'],
-  //   );
-
-  //   List _tempPickupPoints = store.state.ajkState.selectedMyTrip['trip']
-  //       ['trip_group']['route']['pickup_points'] as List;
-
-  //   for (Map element in _tempPickupPoints) {
-  //     wayPoints.add(WayPoint(
-  //         name: element['name'],
-  //         latitude: element['latitude'],
-  //         longitude: element['longitude']));
-  //   }
-  // print("print" + "$latlng");
-
-  // wayPoints.add(WayPoint(
-  //     name: "Driver", latitude: latlng['lat'], longitude: latlng['lng']));
-
-  // final destination =
-  //     WayPoint(name: "Monas", latitude: -6.181087, longitude: 106.8225714);
-
-  // // List _tempPickupPoints = store.state.ajkState.selectedMyTrip['trip']
-  // //     ['trip_group']['route']['pickup_points'] as List;
-
-  // // _tempPickupPoints.forEach((element) {
-  // wayPoints
-  //     .add(WayPoint(name: '3', latitude: -6.3423092, longitude: 107.111347));
-  // wayPoints.add(WayPoint(
-  //     name: 'MONAAASSS', latitude: -6.2467833, longitude: 107.033486));
-  // wayPoints
-  //     .add(WayPoint(name: '1', latitude: -6.2124727, longitude: 106.8950333));
-  // // });
-
-  //   wayPoints.add(destination);
-  //   // wayPoints.add(stop1);
-  //   controller.buildRoute(wayPoints: wayPoints);
-  // }
-
   void toggleStatusNameGlobal(String value) {
     store.dispatch(SetStatusSelectedTrip(statusSelectedTrip: value));
   }
@@ -836,11 +668,7 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
       List _listPickupPoint = store.state.ajkState.selectedMyTrip['trip']
           ['trip_group']['route']['pickup_points'];
 
-      print("pickupPoint");
-      print(_listPickupPoint);
       _listPickupPoint.sort((a, b) => a['priority'].compareTo(b['priority']));
-      print("pickupPoint2");
-      print(_listPickupPoint);
 
       if (_sortingTripHistory.length <= 0) {
         _method = "HEADING";
@@ -848,8 +676,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
           _pickupPoint = _listPickupPoint[0]['pickup_point_id'];
         }
       } else {
-        print("_sortingTripHistory");
-        print(_sortingTripHistory);
         _sortingTripHistory
             .sort((a, b) => a['created_date'].compareTo(b['created_date']));
 
@@ -882,8 +708,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
               _pickupPoint = null;
             }
           } else {
-            print("pickupPoint");
-            print(_listPickupPoint);
             _listPickupPoint
                 .sort((b, a) => a['priority'].compareTo(b['priority']));
 
@@ -917,8 +741,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
       dynamic res = await Providers.manageTrip(
           tripOrderId: tripOrderId, pickupPointId: _pickupPoint, type: _method);
 
-      print(res);
-
       // if(vType == "HEADING" || vType == "ARRIVED"){
       //   setState((){
       //     isOngoing = true;
@@ -937,7 +759,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
         Navigator.pop(context);
       }
     } catch (e) {
-      print("live_tracking");
       print(e);
       // setError(type: "login", value: e);
     } finally {
@@ -1004,9 +825,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
     try {
       dynamic res = await Providers.getTripByTripId(tripId: tripId);
 
-      print("res.data['data']bo");
-      print(res.data);
-
       store.dispatch(SetSelectedMyTrip(selectedMyTrip: res.data['data']));
       statusHandler();
       getPassanger(res.data['data']['trip']['trip_group_id']);
@@ -1018,8 +836,6 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
   Future<void> getPassanger(String tripGroupId) async {
     try {
       dynamic res = await Providers.getPassengers(tripGroupId: tripGroupId);
-      print("res.data['data']ko");
-      print(res.data['data']);
       store.dispatch(SetSelectedPassanger(selectedPassanger: res.data['data']));
     } catch (e) {
       print(e);
@@ -1028,17 +844,30 @@ abstract class LiveTrackingViewModel extends State<LiveTracking> {
 
   void showPassenger(context) {
     final screenSize = MediaQuery.of(context).size;
-
+    print(store.state.ajkState.selectedMyTrip['trip']['status']);
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.black.withOpacity(0.20),
         isDismissible: true,
         isScrollControlled: true,
         builder: (context) {
-          return PassengerBody(
-            tripGroupId: store.state.ajkState.selectedMyTrip['trip']
-                ['trip_group_id'],
-          );
+          return PassengerBody2(
+              isCompleted:
+                  store.state.ajkState.selectedMyTrip['status'] == "COMPLETED",
+              tripGroupId: store.state.ajkState.selectedMyTrip['trip']
+                  ['trip_group_id'],
+              tripId: store.state.ajkState.selectedMyTrip['trip_id']);
         });
+    // showModalBottomSheet(
+    //     context: context,
+    //     backgroundColor: Colors.black.withOpacity(0.20),
+    //     isDismissible: true,
+    //     isScrollControlled: true,
+    //     builder: (context) {
+    //       return PassengerBody(
+    //         tripGroupId: store.state.ajkState.selectedMyTrip['trip']
+    //             ['trip_group_id'],
+    //       );
+    //     });
   }
 }

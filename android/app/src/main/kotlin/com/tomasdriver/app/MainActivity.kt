@@ -1,4 +1,4 @@
-package com.tomasdriver.app
+package com.tomasdriver.apps
 
 import android.Manifest
 import android.annotation.TargetApi
@@ -13,7 +13,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
-    private val CHANNEL = "com.tomasdriver.app/location"
+    private val CHANNEL = "com.tomasdriver.apps/location"
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

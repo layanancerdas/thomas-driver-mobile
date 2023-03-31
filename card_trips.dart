@@ -97,8 +97,7 @@ class _CardTripsState extends State<CardTrips> {
   Future<void> getTripdByTripId() async {
     try {
       dynamic res = await Providers.getTripByTripId(tripId: widget.id);
-      print("res.data");
-      print(res.data);
+
       store.dispatch(SetSelectedMyTrip(selectedMyTrip: res.data['data']));
     } catch (e) {
       print(e);
@@ -213,12 +212,11 @@ class _CardTripsState extends State<CardTrips> {
   }
 
   Future<void> manageTrip(bool noPop) async {
-    print("utu");
     if (store.state.generalState.isLoading) {
       return;
     }
 
-    store.dispatch(SetIsLoading(isLoading: true));
+    // store.dispatch(SetIsLoading(isLoading: true));
     String tripOrderId = widget.id;
     String tripType = widget.data['trip']['type'];
     String _pickupPoint;
@@ -292,29 +290,9 @@ class _CardTripsState extends State<CardTrips> {
     }
 
     try {
-      // dynamic res = await Providers.manageTrip(
-      //     tripId: "314e28d0-eded-11eb-ac0a-c18ea3fccad7",
-      //     pickupPointId: "6d22c690-d259-11eb-94bc-c3fc446052a0",
-      //     type: "ARRIVED"
-      // );
       dynamic res = await Providers.manageTrip(
           tripOrderId: tripOrderId, pickupPointId: _pickupPoint, type: _method);
 
-      print("res.data bro");
-      print(res.data);
-
-      // if (vType == "HEADING" || vType == "ARRIVED") {
-      //   setState(() {
-      //     isOngoing = true;
-      //   });
-      // }
-
-      // if (vType == "ARRIVED_AT_DESTINATION") {
-      //   setState(() {
-      //     isOngoing = false;
-      //   });
-      //   deleteData();
-      // }
       if (res.data['message'] == 'SUCCESS') {
         await getTripdByTripId();
         if (noPop) {
@@ -328,6 +306,9 @@ class _CardTripsState extends State<CardTrips> {
           widget.parentFunction != null ? widget.parentFunction() : print("");
           Navigator.popAndPushNamed(context, '/LiveTracking');
         }
+      } else {
+        store.dispatch(SetIsLoading(isLoading: false));
+        print('gagal');
       }
       //  else {
       //   if (res.data['message'].contains("phone_number")) {
@@ -582,17 +563,17 @@ class _CardTripsState extends State<CardTrips> {
                             ),
                           ],
                         ),
-                        int.parse(widget.stepTrip) > 0
-                            ? Padding(
-                                padding: EdgeInsets.only(left: 8, top: 5),
-                                child: CustomText(
-                                  "${widget.stepTrip} ${AppTranslations.of(context).text("card_more_stop")}",
-                                  color: ColorsCustom.black,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 11,
-                                ),
-                              )
-                            : SizedBox(height: 24),
+                        // int.parse(widget.stepTrip) > 0
+                        //     ? Padding(
+                        //         padding: EdgeInsets.only(left: 8, top: 5),
+                        //         child: CustomText(
+                        //           "${widget.stepTrip} ${AppTranslations.of(context).text("card_more_stop")}",
+                        //           color: ColorsCustom.black,
+                        //           fontWeight: FontWeight.w300,
+                        //           fontSize: 11,
+                        //         ),
+                        //       )
+                        SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -669,8 +650,8 @@ class _CardTripsState extends State<CardTrips> {
                                                             builder:
                                                                 (BuildContext
                                                                     context) {
-                                                              return 
-                                                              Text('dsa');
+                                                              return Text(
+                                                                  'dsa');
                                                               // CustomToast(
                                                               //   title: AppTranslations.of(
                                                               //           context)

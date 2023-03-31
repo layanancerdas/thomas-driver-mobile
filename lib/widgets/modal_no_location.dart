@@ -20,7 +20,7 @@ class ModalNoLocation extends StatefulWidget {
 }
 
 class _ModalNoLocationState extends State<ModalNoLocation> {
-  static const platform = const MethodChannel("com.tomasdriver.app/location");
+  static const platform = const MethodChannel("com.tomasdriver.apps/location");
   Future<void> onEnableLocation() async {
     Navigator.pop(context);
     if (widget.mode == 'service') {
